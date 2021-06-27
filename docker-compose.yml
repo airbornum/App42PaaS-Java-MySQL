@@ -11,8 +11,9 @@ services:
       - "3306:3306"
     hostname: mysql
     environment:
-      - MYSQL_USER=javauser
+      - MYSQL_ROOT_PASSWORD=pwgen
       - MYSQL_DATABASE=javadb
+      - MYSQL_USER=user
       - MYSQL_PASSWORD=pwgen
 
 volumes:
