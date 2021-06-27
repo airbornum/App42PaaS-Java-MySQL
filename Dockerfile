@@ -1,9 +1,8 @@
-FROM maven:3.6.0
-#FROM ubuntu:20.04
+FROM ubuntu:20.04
 ENV TZ=Europe/Kiev
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 RUN apt update
-RUN apt install git -y
+RUN apt install openjdk-8-jdk mave git -y
 WORKDIR /app
 RUN git clone https://github.com/airbornum/App42PaaS-Java-MySQL.git
 WORKDIR /app/App42PaaS-Java-MySQL
