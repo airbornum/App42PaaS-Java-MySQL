@@ -18,12 +18,12 @@ services:
     depends_on:
       - builder
 
-   builder:
+  builder:
      build: .
      volumes:
         - java_app_artifacts:/app/sample-java-app/target
 
-   tomcat:
+  tomcat:
      image: tomcat:9-alpine
      volumes:
         - java_app_artifacts:/usr/local/tomcat/webapps
