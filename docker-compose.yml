@@ -15,7 +15,25 @@ services:
       - MYSQL_DATABASE=javadb
       - MYSQL_USER=user
       - MYSQL_PASSWORD=pwgen
+   depends_on:
+     - builder
+
+  builder:
+    build: .
+    volumes:
+       - java_app_artifacts:/app/sample-java-app/target
+
+  tomcat:
+    image: tomcat:9-alpine
+    volumes:
+     - java_app_artifacts:/usr/local/tomcat/webapps
+   ports:
+     - 80:8080
+   depends_on:
+     - builder
+     - mysql
 
 volumes:
   mysql-data:
+  java_app_artifacts:
     driver: local
