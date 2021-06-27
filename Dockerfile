@@ -1,4 +1,5 @@
-FROM ubuntu:20.04
+FROM maven:3.6.0
+#FROM ubuntu:20.04
 ENV TZ=Europe/Kiev
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 RUN apt update
