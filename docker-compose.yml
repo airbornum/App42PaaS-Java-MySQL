@@ -15,16 +15,18 @@ services:
       - MYSQL_DATABASE=javadb
       - MYSQL_USER=user
       - MYSQL_PASSWORD=pwgen
+      - SQL_INTERNAL_PORT=3306
+      - SQL_CLIENT_PORT=3306
     depends_on:
       - builder
 
   builder:
     build: .
     volumes:
-      - java_app_artifacts:/app/App42PaaS-Java-MySQL/target
+      - java_app_artifacts:/app/App42PaaS-Java-MySQL/target/
 
   tomcat:
-    image: tomcat:9-alpine
+    image: tomcat:7-alpine
     volumes:
       - java_app_artifacts:/usr/local/tomcat/webapps
     ports:
