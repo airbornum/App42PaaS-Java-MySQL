@@ -21,7 +21,7 @@ services:
   builder:
     build: .
     volumes:
-      - java_app_artifacts:/app/sample-java-app/target
+      - java_app_artifacts:/app/App42PaaS-Java-MySQL/target
 
   tomcat:
     image: tomcat:9-alpine

@@ -6,6 +6,6 @@ RUN apt update
 RUN apt install git -y
 WORKDIR /app
 RUN git clone https://github.com/airbornum/App42PaaS-Java-MySQL.git
-WORKDIR /app/sample-java-app
+WORKDIR /app/App42PaaS-Java-MySQL
 RUN mvn package
 RUN mv target/App42PaaS-Java-MySQL-Sample-0.0.1-SNAPSHOT.war ROOT.war
