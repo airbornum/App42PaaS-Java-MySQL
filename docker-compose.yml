@@ -1,7 +1,7 @@
 version: "3"
 services:
 
-mysql:
+  mysql:
     image: mysql:8.0
     container_name: mysql
     command: mysqld --default-authentication-plugin=mysql_native_password
@@ -18,20 +18,20 @@ mysql:
     depends_on:
       - builder
 
- builder:
-    build: .
-    volumes:
-       - java_app_artifacts:/app/sample-java-app/target
+   builder:
+     build: .
+     volumes:
+        - java_app_artifacts:/app/sample-java-app/target
 
- tomcat:
-    image: tomcat:9-alpine
-    volumes:
-     - java_app_artifacts:/usr/local/tomcat/webapps
-   ports:
-     - 80:8080
-   depends_on:
-     - builder
-     - mysql
+   tomcat:
+     image: tomcat:9-alpine
+     volumes:
+        - java_app_artifacts:/usr/local/tomcat/webapps
+     ports:
+        - 80:8080
+     depends_on:
+       - builder
+       - mysql
 
 volumes:
   mysql-data:
