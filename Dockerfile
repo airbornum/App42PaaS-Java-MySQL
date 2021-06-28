@@ -1,11 +1,19 @@
-FROM maven:3.2.5-jdk-8
-#FROM ubuntu:20.04
-ENV TZ=Europe/Kiev
-RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
-#RUN apt update
-#RUN apt install openjdk-8-jdk maven git -y
-WORKDIR /app
+FROM maven:3.2.5-jdk-8 AS builder
+
+WORKDIR /java-app
 RUN git clone https://github.com/airbornum/App42PaaS-Java-MySQL.git
-WORKDIR /app/App42PaaS-Java-MySQL
+WORKDIR /java-app/App42PaaS-Java-MySQL-Sample
 RUN mvn package
-RUN mv target/App42PaaS-Java-MySQL-Sample-0.0.1-SNAPSHOT.war target/ROOT.war
+
+FROM alpine:3.12
+RUN apk add openjdk8-jre
+RUN wget http://apache.rediris.es/tomcat/tomcat-9/v9.0.48/bin/apache-tomcat-9.0.48.tar.gz -O /tmp/tomcat9.tar.gz
+RUN mkdir /opt/tomcat
+RUN tar xvzf /tmp/tomcat9.tar.gz  --strip-components 1 --directory /opt/tomcat
+
+WORKDIR /opt/tomcat/webapps
+COPY --from=builder /java-app/App42PaaS-Java-MySQL-Sample/target/App42PaaS-Java-MySQL-Sample-0.0.1-SNAPSHOT.war .
+COPY --from=builder /java-app/App42PaaS-Java-MySQL-Sample/WebContent/Config.properties ./ROOT/
+
+EXPOSE 8080
+CMD ["/opt/tomcat/bin/catalina.sh", "run"]
