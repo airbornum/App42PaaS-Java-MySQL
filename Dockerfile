@@ -1,4 +1,4 @@
-FROM maven:3.5
+FROM maven:3.2.5-jdk-8
 #FROM ubuntu:20.04
 ENV TZ=Europe/Kiev
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
