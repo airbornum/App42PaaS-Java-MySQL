@@ -13,9 +13,10 @@ services:
     volumes:
       - mysql-data:/var/local/mysql/data
     environment:
-      - MYSQL_USER=user
+      -  MYSQL_USER=user
       -  MYSQL_PASSWORD=pwgen
       -  MYSQL_ROOT_PASSWORD=pwgen
       -  MYSQL_DATABASE=javadb
-    depends_on:
-      - builder
+
+volumes:
+    mysql-data:
